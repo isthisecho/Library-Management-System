@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LibraryManagementSystem.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20230717204032_initMigration")]
-    partial class initMigration
+    [Migration("20230718072659_deneme")]
+    partial class deneme
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -129,21 +129,31 @@ namespace LibraryManagementSystem.Migrations
 
             modelBuilder.Entity("LibraryManagementSystem.Entities.Transaction", b =>
                 {
-                    b.HasOne("LibraryManagementSystem.Entities.Book", "Books")
-                        .WithMany()
+                    b.HasOne("LibraryManagementSystem.Entities.Book", "Book")
+                        .WithMany("Transactions")
                         .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("LibraryManagementSystem.Entities.User", "Users")
-                        .WithMany()
+                    b.HasOne("LibraryManagementSystem.Entities.User", "User")
+                        .WithMany("Transactions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Books");
+                    b.Navigation("Book");
 
-                    b.Navigation("Users");
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("LibraryManagementSystem.Entities.Book", b =>
+                {
+                    b.Navigation("Transactions");
+                });
+
+            modelBuilder.Entity("LibraryManagementSystem.Entities.User", b =>
+                {
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }

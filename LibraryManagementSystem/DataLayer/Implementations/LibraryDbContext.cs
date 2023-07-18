@@ -18,6 +18,10 @@ namespace LibraryManagementSystem.DataLayer.Implementations
 
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder builder)
+        {
+
+        }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Book>(book =>
@@ -47,10 +51,9 @@ namespace LibraryManagementSystem.DataLayer.Implementations
 
                 //COLUMNS
                 user.Property (x => x.Id      ) .HasColumnName("ID"      ) .HasColumnType("uuid").HasDefaultValueSql("gen_random_uuid()").IsRequired();
-                user.Property (x => x.Name    ) .HasColumnName("Name"    ) .HasColumnType("character varying").HasMaxLength(100);
                 user.Property (x => x.Email   ) .HasColumnName("Email"   ) .HasColumnType("character varying").HasMaxLength(100);
-                user.Property (x => x.UserName) .HasColumnName("Username") .HasColumnType("character varying").HasMaxLength(100);
-                user.Property (x => x.Password) .HasColumnName("Password") .HasColumnType("character varying").HasMaxLength(100);
+                user.Property (x => x.FirstName) .HasColumnName("FirstName") .HasColumnType("character varying").HasMaxLength(100);
+                user.Property (x => x.LastName) .HasColumnName("LastName") .HasColumnType("character varying").HasMaxLength(100);
 
                 //RELATIONS
                 user.HasMany(u => u.Transactions).WithOne(t => t.User).HasForeignKey(t => t.UserId).OnDelete(DeleteBehavior.Restrict);
@@ -68,10 +71,6 @@ namespace LibraryManagementSystem.DataLayer.Implementations
                 transaction.Property(x => x.Id).HasColumnName("ID").HasColumnType("uuid").HasDefaultValueSql("gen_random_uuid()").IsRequired();
                 transaction.Property(x => x.BorrowDate).HasColumnName("BorrowDate").HasColumnType("DATE").IsRequired();
                 transaction.Property(x => x.ReturnDate).HasColumnName("ReturnDate").HasColumnType("DATE").IsRequired();
-
-                //RELATIONS
-                transaction.HasOne(t => t.User).WithMany(u => u.Transactions).HasForeignKey(t => t.UserId).OnDelete(DeleteBehavior.Restrict);
-                transaction.HasOne(t => t.Book).WithMany(b => b.Transactions).HasForeignKey(t => t.BookId).OnDelete(DeleteBehavior.Restrict);
 
 
 

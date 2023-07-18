@@ -8,12 +8,13 @@ namespace LibraryManagementSystem.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        private readonly ILogger<BookController> logger     ;
+        private readonly ILogger<BookController>  logger     ;
         private readonly LibraryDbContext        _dbContext  ;
         public BookController(ILogger<BookController> logger, LibraryDbContext dbContext)
         {
             this.logger = logger    ;
             _dbContext  = dbContext ;
+
         }
 
     }

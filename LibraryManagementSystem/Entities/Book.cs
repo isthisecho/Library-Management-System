@@ -5,10 +5,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LibraryManagementSystem.Entities
 {
-    public class Book : IBook , IEntity
+    public class Book :   IEntity
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
         public  Guid          Id            { get ; set ; }
         public  string       Name           { get ; set ; }
         public  string       Description    { get ; set ; }

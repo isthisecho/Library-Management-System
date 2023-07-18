@@ -1,10 +1,17 @@
-﻿namespace LibraryManagementSystem.Abstractions
+﻿using LibraryManagementSystem.Entities;
+
+namespace LibraryManagementSystem.Abstractions
 {
     public interface IBook
     {
-        string  Name           { get; set; }
-        string  Description    { get; set; }
-        string  Author         { get; set; }
+
+        Book  GetBook   ( Guid id   );
+        void DeleteBook ( Guid id   );
+        void AddBook    ( Book book );
+        void UpdateBook ( Book book );
+        IEnumerable<Book> GetBooks ();
+
+
 
     }
 }
