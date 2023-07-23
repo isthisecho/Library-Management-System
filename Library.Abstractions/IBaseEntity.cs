@@ -1,7 +1,7 @@
 ﻿namespace LibraryManagementSystem.Abstractions
 {
 
-    public interface IEntity
+    public interface IBaseEntity
     {
         Guid Id { get; set; }
     }

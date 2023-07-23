@@ -1,19 +1,23 @@
 ﻿using LibraryManagementSystem.Abstractions;
-using LibraryManagementSystem.DataLayer.Abstractions;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Library.API.Entities;
+using System.Text.Json.Serialization;
 
-namespace LibraryManagementSystem.Entities
+namespace LibraryManagementSystem.API.Entities
 {
-    public class Book : IBook , IEntity
+    public class Book : BaseEntity 
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
-        public  Guid          Id            { get ; set ; }
-        public  string       Name           { get ; set ; }
-        public  string       Description    { get ; set ; }
-        public  string       Author         { get ; set ; }
 
-        public ICollection<Transaction> Transactions { get; set; }
+        public  string                  Name          { get ; set ; } = string.Empty; 
+
+        public  string                  Description   { get ; set ; } = string.Empty;
+        public  string                  Author        { get ; set ; } = string.Empty;
+
+
+        [JsonIgnore]
+        public IEnumerable<Transaction>? Transactions { get ; set ; }
+
+        //IEnumerable<ITransaction>? IBook.Transactions { get => Transactions; set => Transactions = value as IEnumerable<Transaction>; }
     }
 }
